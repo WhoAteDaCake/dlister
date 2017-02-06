@@ -1,0 +1,20 @@
+{
+  "name": "dlister",
+  "version": "1.1.0",
+  "main": "index.js",
+  "license": "MIT",
+	"author" : {
+		"name" : "Augustinas Jokubauskas",
+ 		"url" : "http://augustinas.me"
+	},
+	"bin": {
+		"dlister": "./index.js"
+	},
+	"git" : "https://github.com/WhoAteDaCake/dlister",
+	"description" : "Npm package to list directory tree in the terminal",
+	"keywords" : ["dllister","tree","directory"],
+	"homepage" : "https://github.com/WhoAteDaCake/dlister",
+	"bugs" : {
+		"url" : "https://github.com/owner/project/issues"
+	}
+}
