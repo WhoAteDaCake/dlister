@@ -1,1 +1,1 @@
-["\\.git","\\.giaat"]
+["\\.git","node_modules",".*\\.o"]
