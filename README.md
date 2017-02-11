@@ -6,7 +6,7 @@ A npm package to list directory tree in terminal
 npm install dlister -g
 ```
 
-#### Available flags :
+## Available flags :
 ```
 --a : Adds a given expression to ignore list
 --ci : Overlooks ignore list and only ignores given expressions
