@@ -1,12 +1,15 @@
 # dlister
-A npm package to list directory tree in terminal
+
+A npm package to list directory tree in terminal. Current version only supports 1 flag usage per call.
 
 ## Installation guide
+
 ```
 npm install dlister -g
 ```
 
 ## Available flags :
+
 ```
 --a : Adds a given expression to ignore list
 --ci : Overlooks ignore list and only ignores given expressions
@@ -16,15 +19,16 @@ npm install dlister -g
 --l : Lists current ignore list
 --help : Lists available commands
 --so : Adds left padding of 4 spaces
-
 ```
 
 When adding or removing expressions for ignore file suround them in quotes
+
 ```
 dlister --a ".*\.o" "node_modules" ".*\.json"
 ```
 
 Depending on your npm installation, you might have to use `sudo` when running `dlister`. For example
+
 ```
 sudo dlister --a "node_modules"
 ```
