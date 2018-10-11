@@ -61,10 +61,11 @@ let handle_spec args config =
 
 let parse specs args = List.map (handle_spec args) specs
 
-let format_specs specs spaces = List.map
+let print_spec specs spaces = List.map
   (fun spec -> 
-     let (key, _, message) = spec in
-     (key, (String.make spaces ' ') ^ message)
+      let (key, _, message) = spec in
+      print_endline key;
+      print_endline ((String.make spaces ' ') ^ message)
   ) specs
 
 (* TODO implement a check whether the command actually exists in spec *)
@@ -72,16 +73,15 @@ let handle ?(spaces=4) ~when_anon specs args =
   if List.length args == 1 then
     match List.hd args with
       | "help" | "--help" -> 
-        let messages = format_specs specs spaces in
-        List.map (fun (key, message) -> 
-          print_endline(key);
-          print_endline(message)
-        ) messages |> ignore
-      | str -> (
-        if String.get str 0 == '-' then
-          parse specs args |> ignore
-        else 
-          when_anon str
-      )
+        print_spec specs spaces |> ignore;
+        false
+      | str ->
+        (
+          if String.get str 0 == '-' then
+            parse specs args |> ignore
+          else 
+            when_anon str
+        );
+        true
   else
-    ignore (parse specs args )
+    (parse specs args |> ignore; true)

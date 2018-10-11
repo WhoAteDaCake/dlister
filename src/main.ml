@@ -6,6 +6,7 @@ let main () =
 		("--i", Arg.Entries(fun items -> includes := items), "Include items");
 		("--a", Arg.Entries(fun items -> includes := items), "Include a items")
 	] in
-	Arg.handle ~when_anon:(print_endline) specs (Arg.args ())
+	Arg.handle ~when_anon:(print_endline) specs (Arg.args ());
+	print_endline !base_route
 
 let _ = main ()
