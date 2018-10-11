@@ -6,7 +6,10 @@ let main () =
 		("--i", Arg.Entries(fun items -> includes := items), "Include items");
 		("--a", Arg.Entries(fun items -> includes := items), "Include a items")
 	] in
-	Arg.handle ~when_anon:(print_endline) specs (Arg.args ());
-	print_endline !base_route
+	let continue = Arg.handle ~when_anon:(print_endline) specs (Arg.args ()) in
+	if not continue then 
+		()
+	else 
+		print_endline !base_route
 
 let _ = main ()
