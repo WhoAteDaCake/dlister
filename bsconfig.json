@@ -1,0 +1,20 @@
+{
+  "name": "dlister",
+  "version": "0.1.0",
+  "sources": {
+    "dir" : "src",
+    "subdirs" : true
+  },
+  "package-specs": {
+    "module": "commonjs"
+  },
+  "suffix": ".bs.js",
+  "bs-dependencies": [],
+  "warnings": {
+    "error" : "+101"
+  },
+  // "js-post-build": {
+  //   "cmd": "yarn main"
+  // },
+  "refmt": 3
+}
