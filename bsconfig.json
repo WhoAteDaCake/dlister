@@ -13,8 +13,5 @@
   "warnings": {
     "error" : "+101"
   },
-  // "js-post-build": {
-  //   "cmd": "yarn main"
-  // },
   "refmt": 3
 }
