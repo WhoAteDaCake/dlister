@@ -19,7 +19,7 @@ let args () = Array.to_list (Utils.from_nth 2 Sys.argv)
 let rec find_flags key flag args = match args with
   | [] -> flag
   | hd :: [] ->
-    if not (hd == key) then
+    if not (hd = key) then
       flag
     else
       let result = match flag with
@@ -27,7 +27,7 @@ let rec find_flags key flag args = match args with
         | _ -> flag in
       result
   | hd :: value :: rest ->
-    if not (hd == key) then
+    if not (hd = key) then
       find_flags key flag (value :: rest)
     else match flag with
       | Single_Flag(_) -> Single_Flag (Some true)
@@ -69,19 +69,8 @@ let print_spec specs spaces = List.map
   ) specs
 
 (* TODO implement a check whether the command actually exists in spec *)
-let handle ?(spaces=4) ~when_anon specs args =
-  if List.length args == 1 then
-    match List.hd args with
-      | "help" | "--help" -> 
-        print_spec specs spaces |> ignore;
-        false
-      | str ->
-        (
-          if String.get str 0 == '-' then
-            parse specs args |> ignore
-          else 
-            when_anon str
-        );
-        true
+let handle ~when_anon specs args =
+  if List.length args = 1 && String.get (List.hd args) 0 != '-' then
+    when_anon (List.hd args)
   else
-    (parse specs args |> ignore; true)
+    parse specs args |> ignore
