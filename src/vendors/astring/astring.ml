@@ -4,7 +4,11 @@
    %%NAME%% %%VERSION%%
   ---------------------------------------------------------------------------*)
 
-#install_printer Fpath.pp;;
+let strf = Format.asprintf
+let ( ^ ) = Astring_string.append
+
+module Char = Astring_char
+module String = Astring_string
 
 (*---------------------------------------------------------------------------
    Copyright (c) 2015 Daniel C. Bünzli
