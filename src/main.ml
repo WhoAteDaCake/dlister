@@ -10,12 +10,12 @@ let main () =
 	let padding = ref 2 in
 	let specs = [
 		(
-			"--add-ignore",
+			"--add",
 			Arg.Entries(fun items -> action := Add_ignores items),
 			"Adds a given expression to ignore list"
 		);
 		(
-			"--rm-ignore", 
+			"--remove", 
 			Arg.Entries(fun items -> action := Rm_ignores items), 
 			"Removes given expressions from ignore list"
 		);
@@ -41,7 +41,7 @@ let main () =
 		);
 		(
 			"--so", 
-			Arg.Single(fun flag -> padding := 4), 
+			Arg.Single(fun _flag -> padding := 4), 
 			"Adds left padding of 4 spaces"
 		);
 		(
