@@ -1,44 +1,11 @@
-type action =
-	| Add_ignores of string list
-	| Rm_ignores of string list
-	| Ls_ignores
-	| Just of string
-	| Pure
-	| With of string
-	| Run
-	| Help
-	| No_action
-
-type path = Fpath.t
-
-type padding = int 
-
-type command = action * path * padding
-(* 
-	--add-ignores : Adds a given expression to ignore list
-	--rm-ignores : Removes given expressions from ignore list
-	--list : Lists current ignore list
-	--just : Overlooks ignore list and only ignores given expression
-	--pure : Overlooks ignore list
-	--with : Joins given argument to the ignore list
-	--so : Adds left padding of 4 spaces
-	--path: Specifies the path to be ran from.
- *)
+open Dlister_types
 
 let build_unknown_error command =
 	"Command: " ^ command ^ " is unknown, please use --help to list the available commands"
 
-let add_to_route path route =
-	let open Fpath in
-	let full_route = append route (v path) in
-	normalize full_route
-
-let run (action, path, padding) = 
-	print_endline (Fpath.to_string path)
-
 let main () = 
 	let arguments = Arg.args () in
-	let route = ref (Fpath.v (Sys.getcwd ())) in
+	let route = ref (Sys.getcwd ()) in
 	let action = ref No_action in
 	let padding = ref 2 in
 	let specs = [
@@ -79,7 +46,7 @@ let main () =
 		);
 		(
 			"--path", 
-			Arg.Pair(fun flag ->	route := add_to_route flag !route; action := Run ), 
+			Arg.Pair(fun flag -> route := Utils.add_to_route flag !route; action := Run ), 
 			"Specifies the path to be ran from"
 		);
 		(
@@ -91,7 +58,7 @@ let main () =
 	Arg.handle
 		~when_anon:
 			(fun path ->
-				route := add_to_route path !route;
+				route := Utils.add_to_route path !route;
 				action := Run
 			)
 		specs
@@ -99,10 +66,10 @@ let main () =
 	match !action with
 		| No_action ->
 			if List.length arguments = 0 then
-				run (Run, !route, !padding)
+				Dlister.run (Run, !route, !padding)
 			else
 				List.hd arguments |> build_unknown_error |> print_endline
 		| Help -> Arg.print_spec specs 4 |> ignore
-		| action -> run (action, !route, !padding)
+		| action -> Dlister.run (action, !route, !padding)
 
 let _ = main ()

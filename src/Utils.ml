@@ -1,1 +1,0 @@
-let from_nth n array = Array.sub array n (Array.length array - n)
