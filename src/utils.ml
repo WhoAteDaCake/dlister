@@ -6,3 +6,6 @@ let uniq_list lst =
   let unique_set = Hashtbl.create (List.length lst) in
   List.iter (fun x -> Hashtbl.replace unique_set x ()) lst;
   Hashtbl.fold (fun x () xs -> x :: xs) unique_set []
+
+let disjunction list remove =
+  Belt.List.keep list (fun item -> not (Belt.List.has remove item (==)))
