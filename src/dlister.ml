@@ -10,4 +10,6 @@ let run (action, path, padding) =
       let full_config = Utils.uniq_list (config @ list) in
       let contents = Encoder.(encode full_config |> to_string) in
       File.write_file config_path contents
-    | _ -> ()
+    | Ls_ignores ->
+      get_config_raw config_path |> print_endline
+    | _ -> print_endline "Matched none";

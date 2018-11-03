@@ -18,8 +18,10 @@ let get_config_path () =
   let home = Sys.getenv "HOME" in
   Utils.add_to_route ".dlister" home
 
-let get_config path =
+let get_config_raw path =
   if File.exists path then
-    File.read_file path |> Decoder.decode
+    File.read_file path
   else
-    (File.write_file path "[]"; []) 
+    (File.write_file path "[]"; "[]") 
+
+let get_config path = get_config_raw path |> Decoder.decode
