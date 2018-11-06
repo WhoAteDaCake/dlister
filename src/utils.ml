@@ -9,3 +9,5 @@ let uniq_list lst =
 
 let disjunction list remove =
   Belt.List.keep list (fun item -> not (Belt.List.has remove item (==)))
+
+let strings_to_re items = Belt.List.map items Js.Re.fromString
