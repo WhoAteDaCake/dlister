@@ -23,5 +23,5 @@ let run (action, path, padding) =
     | Run ->
       let expressions = Utils.strings_to_re config in
       let tree = Tree.read_dir_tree path (Tree.without expressions) in
-      ()
+      Tree.print_tree tree 0 2
     | _ -> print_endline "Matched none";

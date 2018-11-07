@@ -18,4 +18,4 @@ type command = action * path * padding
 type tree = tree_entry list
 	and tree_entry =
 		| Leaf of string
-		| Branch of tree
+		| Branch of string * tree
