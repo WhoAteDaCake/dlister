@@ -1,14 +1,9 @@
-
-type stats = <
-  isDirectory: unit -> bool [@bs.meth]
-> Js.t
+type stats
 
 external stats_sync: string -> stats  = "statSync" [@@bs.val] [@@bs.module "fs"]
+external is_directory : stats -> bool = "isDirectory" [@@bs.send]
 
-let is_dir path =
-  let stats = stats_sync path in  
-  stats##isDirectory ()
-
+let is_dir path = stats_sync path |> is_directory
 
 let read_file file =
   let open Node_fs in
