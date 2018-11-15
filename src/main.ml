@@ -32,7 +32,7 @@ let main () =
 		(
 			"--pure", 
 			Arg.Pair(fun _flag -> action := Pure), 
-			"Overlooks ignore list and only ignores given expression"
+			"Overlooks ignore list completely"
 		);
 		(
 			"--with", 
