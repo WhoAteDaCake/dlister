@@ -1,8 +1,9 @@
 {
   "name": "dlister",
   "version": "2.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
+  "source": "./lib/js/src/main.bs.js",
   "author": {
     "name": "Augustinas Jokubauskas",
     "url": "http://augustinas.me"
@@ -23,12 +24,14 @@
   },
   "scripts": {
     "build": "bsb -make-world",
+    "bundle": "microbundle --compress=false",
     "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
     "main": "node ./lib/js/src/main.bs.js"
   },
   "devDependencies": {
     "@glennsl/bs-json": "^3.0.0",
-    "bs-platform": "^4.0.6"
+    "bs-platform": "^4.0.6",
+    "microbundle": "^0.7.0"
   }
 }
