@@ -25,19 +25,20 @@ let rec read_dir_tree path is_valid =
       Branch (entry, read_dir_tree full_path is_valid)
     else Leaf (entry))
 
-(* let print_aux tree il iw = match (tree) with  *)
-let build_prefix il iw symbol = (String.make (il * iw) ' ') ^ symbol
+let format_file pf symbol str = (pf ^ symbol ^ line ^ str)
 
-let rec print_tree tree il iw =
+(* sp - spacing, pf - prefix *)
+let rec print_tree tree sp pf =
   match (tree) with
   | [] -> ()
-  | x::[] -> print_entry x corner il iw
-  | x::xs -> print_entry x branch il iw; print_tree xs il iw
-  and print_entry entry symbol il iw =
+  | x::[] -> print_entry x corner sp pf
+  | x::xs -> print_entry x branch sp pf; print_tree xs sp pf
+  and print_entry entry symbol sp pf =
   match (entry) with
-  | Leaf(str) -> print_endline ((build_prefix il iw symbol) ^ line ^ "" ^ str)
+  | Leaf(str) -> format_file pf symbol str |> print_endline
   | Branch(str, tree) ->
-    print_endline ((build_prefix il iw symbol)  ^ line ^ "" ^ str); print_tree tree (il + 1) iw
+    let next_prefix = if symbol == branch then column else " " in
+    format_file pf symbol str |> print_endline;
+    print_tree tree sp (pf ^ next_prefix ^ sp)
 
-(* let rec print_tree tree il iw = Belt.List.map(tree, ) and
-  print_entry  *)
+let print ?padding:(p="") tree indent = print_tree tree indent p 
