@@ -28,3 +28,4 @@ node_modules
 lib
 old-lib
 dist
+.cache
