@@ -15,7 +15,12 @@ type flag =
 type config = string * spec * string
 
 let args () = Array.to_list (Utils.from_nth 2 Sys.argv)
-
+(* 
+  TODO:
+    Fix --so flag not detected
+    Improve methods for dealing with arguments.
+    Should be O(n) instead of O(n!). Maybe use a recursive function ? 
+ *)
 let rec find_flags key flag args = match args with
   | [] -> flag
   | hd :: [] ->

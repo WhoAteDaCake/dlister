@@ -7,7 +7,7 @@ let main () =
 	let arguments = Arg.args () in
 	let route = ref (Sys.getcwd ()) in
 	let action = ref No_action in
-	let padding = ref 2 in
+	let padding = ref "  " in
 	let specs = [
 		(
 			"--add",
@@ -41,7 +41,7 @@ let main () =
 		);
 		(
 			"--so", 
-			Arg.Single(fun _flag -> padding := 4), 
+			Arg.Single(fun _flag -> padding := "    "), 
 			"Adds left padding of 4 spaces"
 		);
 		(

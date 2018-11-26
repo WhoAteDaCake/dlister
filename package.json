@@ -1,40 +1,39 @@
 {
-  "name": "dlister",
-  "sideEffects": false,
-  "version": "2.0.0",
-  "license": "MIT",
-  "source": "./lib/es6/src/main.bs.js",
-  "author": {
-    "name": "Augustinas Jokubauskas",
-    "url": "http://augustinas.me"
-  },
-  "bin": {
-    "dlister": "./dist/main.js"
-  },
-  "git": "https://github.com/WhoAteDaCake/dlister",
-  "description": "Npm package to list directory tree in the terminal",
-  "keywords": [
-    "dllister",
-    "tree",
-    "directory"
-  ],
-  "homepage": "https://github.com/WhoAteDaCake/dlister",
-  "bugs": {
-    "url": "https://github.com/WhoAteDaCake/dlister/issues"
-  },
-  "scripts": {
-    "build": "bsb -make-world",
-    "bundle": "yarn build && webpack-cli --config webpack.config.js",
-    "start": "bsb -make-world -w",
-    "clean": "bsb -clean-world",
-    "main": "node ./lib/js/src/main.bs.js"
-  },
-  "devDependencies": {
-    "@glennsl/bs-json": "^3.0.0",
-    "bs-platform": "^4.0.6",
-    "terser-webpack-plugin": "^1.1.0",
-    "webpack": "^4.26.0",
-    "webpack-cli": "^3.1.2",
-    "webpack-node-externals": "^1.7.2"
-  }
+	"name": "dlister",
+	"sideEffects": false,
+	"version": "2.0.0",
+	"license": "MIT",
+	"source": "./lib/es6/src/main.bs.js",
+	"author": {
+		"name": "Augustinas Jokubauskas",
+		"url": "http://augustinas.me"
+	},
+	"bin": {
+		"dlister": "./dist/main.js"
+	},
+	"git": "https://github.com/WhoAteDaCake/dlister",
+	"description": "Npm package to list directory tree in the terminal",
+	"keywords": [ "dllister", "tree", "directory" ],
+	"homepage": "https://github.com/WhoAteDaCake/dlister",
+	"bugs": {
+		"url": "https://github.com/WhoAteDaCake/dlister/issues"
+	},
+	"scripts": {
+		"build": "bsb -make-world",
+		"bundle": "yarn build && webpack-cli --config webpack.config.js",
+		"start": "bsb -make-world -w",
+		"clean": "bsb -clean-world",
+		"main": "node -r esm ./lib/es6/src/main.bs.js",
+		"test": "yarn build && jest --config=jest.json --maxWorkers=4"
+	},
+	"devDependencies": {
+		"@glennsl/bs-jest": "^0.4.5",
+		"@glennsl/bs-json": "^3.0.0",
+		"bs-platform": "^4.0.6",
+		"esm": "^3.0.84",
+		"terser-webpack-plugin": "^1.1.0",
+		"webpack": "^4.26.0",
+		"webpack-cli": "^3.1.2",
+		"webpack-node-externals": "^1.7.2"
+	}
 }
