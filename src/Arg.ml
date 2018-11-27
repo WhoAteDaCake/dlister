@@ -18,11 +18,10 @@ type specs = string * action * string
 
 let args () = Array.to_list (Utils.from_nth 2 Sys.argv)
 
-let not_found_msg flag = "Could not find flag: " ^ flag ^ " in specification"
+let not_found_msg flag = "Could not find flag: " ^ flag ^ ", maybe try using --help ?"
 let missing_value flag = "Missing value for flag: " ^ flag
 
-let is_flag x = Utils.first_char x = '-'
-let is_not_flag x = not (is_flag x)
+let is_not_flag x = Utils.first_char x <> '-'
 
 let find_spec flag = Utils.find_opt (fun (key, _, _) -> key = flag)
 
@@ -47,16 +46,17 @@ let rec parse specs = function
         parse specs xs
         
 
-let print_spec specs spaces = List.map
-  (fun spec -> 
-      let (key, _, message) = spec in
-      print_endline key;
-      print_endline ((String.make spaces ' ') ^ message)
-  ) specs
+let print_spec specs spaces =
+  let prefix = String.make spaces ' ' in
+  List.map
+    (fun spec -> 
+        let (key, _, message) = spec in
+        print_endline key;
+        print_endline (prefix ^ message)
+    ) specs
 
 (* TODO: handle the parse return type *)
 let handle ~when_anon specs = function
-  | [] -> Error "No arguments received"
   | x :: [] ->
     if is_not_flag x then
       (when_anon x; Ok ())

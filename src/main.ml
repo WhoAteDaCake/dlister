@@ -1,8 +1,5 @@
 open Dlister_types
 
-let build_unknown_error command =
-	"Command: " ^ command ^ " is unknown, please use --help to list the available commands"
-
 let main () = 
 	let arguments = Arg.args () in
 	let route = ref (Sys.getcwd ()) in
@@ -64,14 +61,10 @@ let main () =
 		specs
 		arguments in
 	match result with
-	| Error(e) -> print_endline e 
-	| Ok(_) | Error "No arguments received" -> 
+	| Error(err) -> print_endline err 
+	| Ok () -> 
 		match !action with
-		| No_action ->
-			if List.length arguments = 0 then
-				Dlister.run (Run, !route, !padding)
-			else
-				List.hd arguments |> build_unknown_error |> print_endline
+		| No_action -> Dlister.run (Run, !route, !padding)
 		| Help -> Arg.print_spec specs 4 |> ignore
 		| action -> Dlister.run (action, !route, !padding) 
 
