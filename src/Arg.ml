@@ -1,70 +1,51 @@
 (* Idea *)
 
+open Dlister_types
+
 exception No_arguments of string
 
-type spec =
+type action =
  | Single of (bool -> unit)
  | Pair of (string -> unit)
  | Entries of (string list -> unit)
 
-type flag =
+(* type flag =
   | Single_Flag of bool option
   | Pair_Flag of string option
-  | Entries_Flag of (string list) option
+  | Entries_Flag of (string list) option *)
 
-type config = string * spec * string
+type specs = string * action * string
 
 let args () = Array.to_list (Utils.from_nth 2 Sys.argv)
-(* 
-  TODO:
-    Fix --so flag not detected
-    Improve methods for dealing with arguments.
-    Should be O(n) instead of O(n!). Maybe use a recursive function ? 
- *)
-let rec find_flags key flag args = match args with
-  | [] -> flag
-  | hd :: [] ->
-    if not (hd = key) then
-      flag
-    else
-      let result = match flag with
-        | Single_Flag(_) -> Single_Flag (Some true)
-        | _ -> flag in
-      result
-  | hd :: value :: rest ->
-    if not (hd = key) then
-      find_flags key flag (value :: rest)
-    else match flag with
-      | Single_Flag(_) -> Single_Flag (Some true)
-      | Pair_Flag(_) -> Pair_Flag (Some value)
-      | Entries_Flag(ls_opt) ->
-        let new_entries = match ls_opt with
-          | None -> [value]
-          | Some(ls) -> value :: ls in
-        (* If we need to maintain order acc @ [value] should be used or list should be reversed after *)
-        find_flags key (Entries_Flag (Some new_entries)) rest      
 
+let not_found_msg flag = "Could not find flag: " ^ flag ^ " in specification"
+let missing_value flag = "Missing value for flag: " ^ flag
 
-let handle_spec args config = 
-  let (key, spec, _) = config in
-  match spec with
-    | Single(fn) ->
-      (match find_flags key (Single_Flag None) args with
-        | Single_Flag(Some(value)) -> fn(value)
-        | _ -> ()
-      )
-    | Pair(fn) ->
-      (match find_flags key (Pair_Flag None) args with
-        | Pair_Flag(Some(value)) -> fn(value)
-        | _ -> ()
-      )
-    | Entries(fn) -> 
-      (match find_flags key (Entries_Flag None) args with
-        | Entries_Flag(Some(value)) -> fn(value)
-        | _ -> ()
-      )
+let is_flag x = Utils.first_char x = '-'
+let is_not_flag x = not (is_flag x)
 
-let parse specs args = List.map (handle_spec args) specs
+let find_spec flag = Utils.find_opt (fun (key, _, _) -> key = flag)
+
+let rec parse specs = function
+  | [] -> Ok ()
+  | flag :: xs ->
+    match find_spec flag specs with
+    | None -> Error (not_found_msg flag)
+    | Some(spec) -> 
+      let (_, action, _) = spec in
+      match action with
+      | Single(fn) -> fn true; parse specs xs
+      | Pair(fn) -> 
+        (
+          match xs with
+          | [] -> Error (missing_value flag)
+          | x :: xs -> fn x; parse specs xs
+        )
+      | Entries(fn) ->
+        let (entries, xs) = Utils.take_while is_not_flag xs in
+        fn entries;
+        parse specs xs
+        
 
 let print_spec specs spaces = List.map
   (fun spec -> 
@@ -73,9 +54,12 @@ let print_spec specs spaces = List.map
       print_endline ((String.make spaces ' ') ^ message)
   ) specs
 
-(* TODO implement a check whether the command actually exists in spec *)
-let handle ~when_anon specs args =
-  if List.length args = 1 && String.get (List.hd args) 0 != '-' then
-    when_anon (List.hd args)
-  else
-    parse specs args |> ignore
+(* TODO: handle the parse return type *)
+let handle ~when_anon specs = function
+  | [] -> Error "No arguments received"
+  | x :: [] ->
+    if is_not_flag x then
+      (when_anon x; Ok ())
+    else
+      parse specs [x]
+  | args -> parse specs args

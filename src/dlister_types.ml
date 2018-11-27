@@ -19,3 +19,7 @@ type tree = tree_entry list
 	and tree_entry =
 		| Leaf of string
 		| Branch of string * tree
+	
+type ('a, 'b) result =
+	| Ok of 'a
+	| Error of 'b

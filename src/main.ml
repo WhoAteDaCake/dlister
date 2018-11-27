@@ -55,21 +55,25 @@ let main () =
 			"Lists all available commands"
 		);
 	] in
-	Arg.handle
+	let result = Arg.handle
 		~when_anon:
 			(fun path ->
 				route := Utils.add_to_route path !route;
 				action := Run
 			)
 		specs
-		arguments;
-	match !action with
+		arguments in
+	match result with
+	| Error(e) -> print_endline e 
+	| Ok(_) | Error "No arguments received" -> 
+		match !action with
 		| No_action ->
 			if List.length arguments = 0 then
 				Dlister.run (Run, !route, !padding)
 			else
 				List.hd arguments |> build_unknown_error |> print_endline
 		| Help -> Arg.print_spec specs 4 |> ignore
-		| action -> Dlister.run (action, !route, !padding)
+		| action -> Dlister.run (action, !route, !padding) 
+
 
 let _ = main ()

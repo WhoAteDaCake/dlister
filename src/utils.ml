@@ -11,3 +11,19 @@ let disjunction list remove =
   Belt.List.keep list (fun item -> not (Belt.List.has remove item (==)))
 
 let strings_to_re items = Belt.List.map items Js.Re.fromString
+
+let first_char str = String.get str 0
+
+let rec find_opt fn = function
+  | [] -> None
+  | x :: xs -> if fn x then Some x else find_opt fn xs 
+
+let rec take_while_aux fn ls = function
+| [] -> (List.rev ls, [])
+| x :: xs ->
+  if fn x then
+    take_while_aux fn (x :: ls) xs
+  else
+    (List.rev ls, x :: xs) 
+
+let take_while fn xs = take_while_aux fn [] xs
