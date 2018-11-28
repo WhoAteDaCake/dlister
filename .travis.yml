@@ -17,6 +17,7 @@ cache:
 
 script:
   - yarn build
+  - yarn bundle
   - yarn test
 
 deploy:
