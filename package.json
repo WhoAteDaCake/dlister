@@ -24,9 +24,11 @@
 		"start": "bsb -make-world -w",
 		"clean": "bsb -clean-world",
 		"main": "node -r esm ./lib/es6/src/main.bs.js",
-		"test": "yarn build && jest --config=jest.config.js"
+		"test": "jest --config=jest.config.js",
+		"tag-build": "DEBUG=@atecake/builder:* node builder.js tag"
 	},
 	"devDependencies": {
+		"@atecake/builder": "^0.0.6",
 		"@babel/core": "^7.1.6",
 		"@babel/preset-env": "^7.1.6",
 		"@glennsl/bs-jest": "^0.4.5",
