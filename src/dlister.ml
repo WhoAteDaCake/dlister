@@ -6,9 +6,9 @@ let run (action, path, padding) =
   let open Dlister_config in
   let config_path = get_config_path () in
   let config = get_config config_path in
-  let show ?spacing:(sp=padding) ignores =
+  let show ?spacing:(sp="  ") ignores =
     let tree = Tree.read_dir_tree path (Tree.without ignores) in
-    Tree.print tree sp in
+    Tree.print padding tree sp in
   let open Dlister_types in
   match action with
     | Add_ignores(list) ->

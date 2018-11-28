@@ -4,7 +4,7 @@ let main () =
 	let arguments = Arg.args () in
 	let route = ref (Sys.getcwd ()) in
 	let action = ref No_action in
-	let padding = ref "  " in
+	let padding = ref "" in
 	let specs = [
 		(
 			"--add",

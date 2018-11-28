@@ -10,7 +10,7 @@ let () =
         (
           "--so",
           Arg.Single(fun items -> changed := true),
-          "Adds a given expression to ignore list"
+          "Should test"
         );
       ] in
       let args = ["--so"] in
@@ -23,7 +23,7 @@ let () =
         (
           "--so",
           Arg.Pair(fun value -> changed := Some value),
-          "Adds a given expression to ignore list"
+          "Should test"
         );
       ] in
       let args = ["--so"; "test"] in
@@ -36,7 +36,7 @@ let () =
         (
           "--so",
           Arg.Entries(fun values -> changed := Some values),
-          "Adds a given expression to ignore list"
+          "Should test"
         );
       ] in
       let args = ["--so"; "test"; "test2"] in

@@ -41,4 +41,4 @@ let rec print_tree tree sp pf =
     format_file pf symbol str |> print_endline;
     print_tree tree sp (pf ^ next_prefix ^ sp)
 
-let print ?padding:(p="") tree indent = print_tree tree indent p 
+let print padding tree indent = print_tree tree indent padding
