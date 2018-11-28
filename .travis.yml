@@ -15,14 +15,17 @@ cache:
     - 'node_modules'
     - $HOME/.npm
 
-jobs:
-  include:
-    - stage: install
-      script: yarn install
-    - stage: build
-      script: yarn build
-    - stage: test
-      script: yarn test
+script:
+  - yarn build
+  - yarn test
+# jobs:
+#   include:
+#     - stage: install
+#       script: yarn install
+#     - stage: build
+#       script: yarn build
+#     - stage: test
+#       script: yarn test
 
 deploy:
   skip_cleanup: true
