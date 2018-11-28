@@ -11,6 +11,7 @@
 	"bin": {
 		"dlister": "./dist/main.js"
 	},
+	"files": [ "dist" ],
 	"git": "https://github.com/WhoAteDaCake/dlister",
 	"description": "Npm package to list directory tree in the terminal",
 	"keywords": [ "dllister", "tree", "directory" ],
