@@ -9,11 +9,6 @@ type action =
  | Pair of (string -> unit)
  | Entries of (string list -> unit)
 
-(* type flag =
-  | Single_Flag of bool option
-  | Pair_Flag of string option
-  | Entries_Flag of (string list) option *)
-
 type specs = string * action * string
 
 let args () = Array.to_list (Utils.from_nth 2 Sys.argv)
