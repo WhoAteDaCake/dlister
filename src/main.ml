@@ -1,8 +1,7 @@
 open Dlister_types
 
-let main () = 
-	let arguments = Arg.args () in
-	let route = ref (Sys.getcwd ()) in
+let get_config default_route arguments =
+	let route = ref (default_route) in
 	let action = ref No_action in
 	let padding = ref "" in
 	let specs = [
@@ -52,24 +51,22 @@ let main () =
 			"Lists all available commands"
 		);
 	] in
-	let result = Arg.handle
-		~when_anon:
-			(fun path ->
-				route := Utils.add_to_route path !route;
-				action := Run
-			)
-		specs
-		arguments in
+	let result = Arg.handle ~when_anon:
+		(fun path ->
+			route := Utils.add_to_route path !route;
+			action := Run
+		) specs arguments in
 	match result with
-	| Error(err) -> print_endline err 
-	| Ok () -> 
-		let result = match !action with
-		| No_action -> Dlister.run (Run, !route, !padding)
-		| Help -> (Arg.print_spec specs 4; Ok ())
-		| action -> Dlister.run (action, !route, !padding) in
-		match (result) with
-		| Ok () -> ()
-		| Error(msg) -> print_endline msg
+	| Ok () -> Ok (!action, !route, !padding, specs)
+	| Error(msg) -> Error msg
 
-
-let _ = main ()
+let run () = match get_config (Sys.getcwd ()) (Arg.args ()) with
+| Error(err) -> print_endline err 
+| Ok ((action, route, padding, specs)) -> 
+	let result = match action with
+	| No_action -> Dlister.run (Run, route, padding)
+	| Help -> (Arg.print_spec specs 4 |> ignore; Ok ())
+	| action -> Dlister.run (action, route, padding) in
+	match (result) with
+	| Ok () -> ()
+	| Error(msg) -> print_endline msg
