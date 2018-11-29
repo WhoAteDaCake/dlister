@@ -63,10 +63,13 @@ let main () =
 	match result with
 	| Error(err) -> print_endline err 
 	| Ok () -> 
-		match !action with
+		let result = match !action with
 		| No_action -> Dlister.run (Run, !route, !padding)
-		| Help -> Arg.print_spec specs 4 |> ignore
-		| action -> Dlister.run (action, !route, !padding) 
+		| Help -> (Arg.print_spec specs 4; Ok ())
+		| action -> Dlister.run (action, !route, !padding) in
+		match (result) with
+		| Ok () -> ()
+		| Error(msg) -> print_endline msg
 
 
 let _ = main ()
