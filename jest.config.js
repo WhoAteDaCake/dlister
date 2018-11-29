@@ -1,5 +1,5 @@
 // Need to have a better solution in the future
-const notBsModule = '\\/node_modules\\/(?!(@glennsl\\/bs\\-jest|bs\\-platform)\\/).*/';
+const notBsModule = '\\/node_modules\\/(?!(@glennsl\\/bs\\-jest|bs\\-platform)|@glennsl\\/bs\\-json\\/).*/';
 
 module.exports = {
 	verbose: true,
