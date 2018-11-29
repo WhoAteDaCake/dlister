@@ -33,5 +33,5 @@ module Result = struct
 
 	let (>>=) a f = match a with
 	| Ok(r) -> Ok (f r)
-	| e -> e
+	| Error(e) -> Error e
 end

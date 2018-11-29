@@ -60,13 +60,16 @@ let get_config default_route arguments =
 	| Ok () -> Ok (!action, !route, !padding, specs)
 	| Error(msg) -> Error msg
 
-let run () = match get_config (Sys.getcwd ()) (Arg.args ()) with
-| Error(err) -> print_endline err 
-| Ok ((action, route, padding, specs)) -> 
-	let result = match action with
-	| No_action -> Dlister.run (Run, route, padding)
-	| Help -> (Arg.print_spec specs 4 |> ignore; Ok ())
-	| action -> Dlister.run (action, route, padding) in
-	match (result) with
-	| Ok () -> ()
+let execute (action, route, padding, specs) = match action with
+| No_action -> Dlister.run (Run, route, padding)
+| Help -> (Arg.print_spec specs 4 |> ignore; Ok ())
+| action -> Dlister.run (action, route, padding)
+
+
+let run () =
+	let open Result in
+	let result = get_config (Sys.getcwd ()) (Arg.args ())
+		>>= execute in
+	match result with
+	| Ok (_) -> ()
 	| Error(msg) -> print_endline msg
