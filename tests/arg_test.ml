@@ -14,7 +14,7 @@ let () =
         );
       ] in
       let args = ["--so"] in
-      Arg.parse specs args;
+      Arg.parse specs args |> ignore;
       expect !changed = true
     );
     test "should work with a pair" (fun () ->
@@ -27,7 +27,7 @@ let () =
         );
       ] in
       let args = ["--so"; "test"] in
-      Arg.parse specs args;
+      Arg.parse specs args  |> ignore;
       expect !changed = (Some "test")
     );
     test "should work with entries" (fun () ->
@@ -40,7 +40,7 @@ let () =
         );
       ] in
       let args = ["--so"; "test"; "test2"] in
-      Arg.parse specs args;
+      Arg.parse specs args  |> ignore;
       expect !changed = (Some ["test"; "test2"])
     );
   )
