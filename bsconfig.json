@@ -11,9 +11,12 @@
 			"type": "dev"
 		}
 	],
-	"package-specs": {
-		"module": "es6"
-	},
+	"package-specs": [
+		{
+			"module": "es6"
+		},
+		{ "module": "commonjs" }
+	],
 	"suffix": ".bs.js",
 	"bs-dependencies": [ "@glennsl/bs-json" ],
 	"bs-dev-dependencies": [ "@glennsl/bs-jest" ],
