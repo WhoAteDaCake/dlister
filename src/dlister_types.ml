@@ -30,4 +30,8 @@ module Result = struct
 	let ok = function
 	| Ok(r) -> r 
 	| _ -> raise (ResultException "Expected Ok, but received Error")
+
+	let (>>=) a f = match a with
+	| Ok(r) -> Ok (f r)
+	| e -> e
 end

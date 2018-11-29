@@ -10,5 +10,9 @@ let () =
         let (_, route, _, _) = Main.get_config "/test" ["./test"] |> Result.ok in  
         expect route = "/test/test"
       );
+      test "should to specify route using --path" (fun () ->
+        let (_, route, _, _) = Main.get_config "/test" ["--path"; "./test"] |> Result.ok in  
+        expect route = "/test/test"
+      );
     )
   )
