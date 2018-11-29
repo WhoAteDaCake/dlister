@@ -11,14 +11,25 @@ npm install dlister -g
 ## Available flags :
 
 ```
---a : Adds a given expression to ignore list
---ci : Overlooks ignore list and only ignores given expressions
---cj : Joins given argument list with the ignore list
---i : Overlooks ignore list
---r : Removes given expressions from ignore list
---l : Lists current ignore list
---help : Lists available commands
---so : Adds left padding of 4 spaces
+--add
+    Adds a given expression to ignore list
+--remove
+    Removes given expressions from ignore list
+--list
+    Lists current ignore list
+--just
+    Overlooks ignore list and only ignores given expression
+--pure
+    Overlooks ignore list completely
+--with
+    Joins given argument to the ignore list
+--so
+    Adds left padding of 4 spaces
+--path
+    Specifies the path to be ran from
+--help
+    Lists all available commands
+
 ```
 
 When adding or removing expressions for ignore file suround them in quotes
