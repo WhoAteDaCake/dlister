@@ -11,10 +11,16 @@
 	"bin": {
 		"dlister": "./dist/main.js"
 	},
-	"files": [ "dist" ],
+	"files": [
+		"dist"
+	],
 	"git": "https://github.com/WhoAteDaCake/dlister",
 	"description": "Npm package to list directory tree in the terminal",
-	"keywords": [ "dllister", "tree", "directory" ],
+	"keywords": [
+		"dllister",
+		"tree",
+		"directory"
+	],
 	"homepage": "https://github.com/WhoAteDaCake/dlister",
 	"bugs": {
 		"url": "https://github.com/WhoAteDaCake/dlister/issues"
@@ -30,17 +36,12 @@
 	},
 	"devDependencies": {
 		"@atecake/builder": "^0.0.6",
-		"@babel/core": "^7.1.6",
-		"@babel/preset-env": "^7.1.6",
 		"@glennsl/bs-jest": "^0.4.5",
 		"@glennsl/bs-json": "^3.0.0",
-		"babel-core": "^7.0.0-bridge.0",
-		"babel-jest": "^23.6.0",
 		"bs-platform": "^4.0.6",
 		"esm": "^3.0.84",
 		"jest": "^23.6.0",
 		"jest-cli": "^23.6.0",
-		"regenerator-runtime": "^0.13.1",
 		"terser-webpack-plugin": "^1.1.0",
 		"webpack": "^4.26.0",
 		"webpack-cli": "^3.1.2",
