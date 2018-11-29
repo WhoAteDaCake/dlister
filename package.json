@@ -1,7 +1,7 @@
 {
 	"name": "dlister",
 	"sideEffects": false,
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"license": "MIT",
 	"source": "./lib/es6/src/main.bs.js",
 	"author": {
@@ -11,16 +11,10 @@
 	"bin": {
 		"dlister": "./dist/main.js"
 	},
-	"files": [
-		"dist"
-	],
+	"files": [ "dist" ],
 	"git": "https://github.com/WhoAteDaCake/dlister",
 	"description": "Npm package to list directory tree in the terminal",
-	"keywords": [
-		"dllister",
-		"tree",
-		"directory"
-	],
+	"keywords": [ "dllister", "tree", "directory" ],
 	"homepage": "https://github.com/WhoAteDaCake/dlister",
 	"bugs": {
 		"url": "https://github.com/WhoAteDaCake/dlister/issues"
